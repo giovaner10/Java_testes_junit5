@@ -7,12 +7,14 @@ import java.util.Date;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
-import org.junit.Assert;
-import org.junit.Test;
+import br.ce.wcaquino.exceptions.FilmeSemEstoqueException;
 
 public class LocacaoService {
 	
-	public Locacao alugarFilme(Usuario usuario, Filme filme) {
+	public Locacao alugarFilme(Usuario usuario, Filme filme) throws Exception {
+		if(filme.getEstoque() == 0){
+			throw new FilmeSemEstoqueException("estoque insuficiente");
+		}
 		Locacao locacao = new Locacao();
 		locacao.setFilme(filme);
 		locacao.setUsuario(usuario);
@@ -30,19 +32,4 @@ public class LocacaoService {
 		return locacao;
 	}
 
-	@Test
-	public void teste(){
-
-		//cenario
-		LocacaoService service = new LocacaoService();
-
-		//acao
-		Locacao locacao = service.alugarFilme(new Usuario(), new Filme());
-
-		//verificacao
-		System.out.println(locacao.getDataLocacao());
-		Assert.assertTrue(locacao.getDataLocacao() != null);
-
-		
-	}
 }
