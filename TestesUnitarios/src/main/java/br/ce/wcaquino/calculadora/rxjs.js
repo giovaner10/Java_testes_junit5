@@ -6,7 +6,7 @@ const obs = Observable.create(subscriber =>
     subscriber.complete()
 })
 //revendo os conceitos semanticos
-wwwwwwww
+noovoos
 obs.subscribe(txt =>{
     console.log(txt)
 })
