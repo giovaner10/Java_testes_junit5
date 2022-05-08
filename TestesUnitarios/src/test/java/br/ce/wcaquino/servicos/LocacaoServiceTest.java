@@ -17,6 +17,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LocacaoServiceTest {
 
     @Rule
@@ -39,7 +42,7 @@ public class LocacaoServiceTest {
         //acao
         Locacao locacao = null;
         try {
-            locacao = service.alugarFilme(new Usuario(), new Filme("giovane", 1, 2.0));
+            locacao = service.alugarFilme(new Usuario(), List.of(new Filme("giovane", 1, 2.0)));
             assertTrue(locacao.getDataLocacao() != null);
 
             assertFalse(locacao.getDataLocacao() == null);
@@ -70,7 +73,7 @@ public class LocacaoServiceTest {
 
         //acao
         Locacao locacao = null;
-        locacao = service.alugarFilme(new Usuario(), new Filme("giovane", 0, 2.0));
+        locacao = service.alugarFilme(new Usuario(),List.of(new Filme("giovane", 0, 2.0)));
 
 
     }
@@ -84,7 +87,7 @@ public class LocacaoServiceTest {
         //acao
         Locacao locacao = null;
         try {
-            locacao = service.alugarFilme(new Usuario(), new Filme("giovane", 0, 2.0));
+            locacao = service.alugarFilme(new Usuario(), List.of(new Filme("giovane", 0, 2.0)));
         } catch (Exception e) {
             assertThat(e.getMessage(), is("estoque insuficiente"));
         }
@@ -100,7 +103,7 @@ public class LocacaoServiceTest {
         LocacaoService service = new LocacaoService();
         //expectedException.expect(FilmeSemEstoqueException.class);
 
-        Assertions.assertThrows(FilmeSemEstoqueException.class, ()-> service.alugarFilme(new Usuario(), new Filme("giovane", 0, 2.0)));
+        Assertions.assertThrows(FilmeSemEstoqueException.class, ()-> service.alugarFilme(new Usuario(), List.of(new Filme("giovane", 0, 2.0))));
         //acao
        // Locacao locacao = service.alugarFilme(new Usuario(), new Filme("giovane", 0, 2.0));
 
@@ -109,7 +112,9 @@ public class LocacaoServiceTest {
     @Test
     public void teste_filmeSemEstoque4()  {
 
-        Assertions.assertThrows(FilmeSemEstoqueException.class, ()-> locacaoService.alugarFilme(null, new Filme("giovane", 0, 2.0)));
+        LocacaoService service = new LocacaoService();
+
+        Assertions.assertThrows(FilmeSemEstoqueException.class, ()-> service.alugarFilme(null, List.of(new Filme("giovane", 0, 2.0))));
 
 
     }

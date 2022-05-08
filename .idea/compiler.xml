@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="TestesUnitarios" target="1.8" />
+      <module name="TestesUnitarios" target="9" />
     </bytecodeTargetLevel>
   </component>
 </project>
